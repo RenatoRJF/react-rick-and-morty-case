@@ -23,3 +23,24 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 The build is minified and the filenames include the hashes.<br />
 The app will be ready to be deployed!
+
+## Run with Docker
+
+To run the app with docker execute the following commands into the project's folder:
+
+### `docker build -t frontend:dev .`
+
+This command will create an image to build the app
+
+### Run the image
+
+```
+docker run -it --rm \
+-v ${PWD}:/app \
+-v /app/node_modules \
+-p 3001:3000 \
+-e CHOKIDAR_USEPOLLING=true \
+frontend:dev
+```
+
+After run this command you must be able to open the app in [http://localhost:3000](http://localhost:3000)
