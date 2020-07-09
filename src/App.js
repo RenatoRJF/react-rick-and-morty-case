@@ -8,6 +8,7 @@ import { COLORS } from "./styles/variables";
 
 import Character from "./components/Character";
 import Search from "./components/Search";
+import Loader from "./components/Loader";
 
 const Container = styled.div({
   width: "100%",
@@ -49,17 +50,19 @@ function App() {
   let searchBy = useRef("characters");
   const [filter, selectFilter] = useState("");
   const [characters, setCharacters] = useState(null);
-  const [getCharacters, { data, error: charactersError }] = useLazyQuery(
-    GET_CHARACTERS
-  );
+  const [
+    getCharacters,
+    { data, error: charactersError, loading: loadingCharacters },
+  ] = useLazyQuery(GET_CHARACTERS);
   const [
     getEpisodes,
-    { data: episodesData, error: episodesError },
+    { data: episodesData, error: episodesError, loading: loadingEpisodes },
   ] = useLazyQuery(GET_EPISODES);
   const [
     filterByLocation,
-    { data: lodationData, error: locationError },
+    { data: lodationData, error: locationError, loading: loadindLocation },
   ] = useLazyQuery(GET_LOCATIONS);
+  const isLoading = loadingCharacters || loadingEpisodes || loadindLocation;
 
   useEffect(() => {
     if (!characters && !filter) {
@@ -162,10 +165,13 @@ function App() {
       </Header>
 
       <Content>
-        {Array.isArray(characters) &&
+        {!isLoading &&
+          Array.isArray(characters) &&
           characters.map((character) => (
             <Character data={character} key={character.id} />
           ))}
+
+        {isLoading && <Loader />}
       </Content>
     </Container>
   );
