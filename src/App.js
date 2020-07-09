@@ -9,6 +9,7 @@ import { COLORS } from "./styles/variables";
 import Character from "./components/Character";
 import Search from "./components/Search";
 import Loader from "./components/Loader";
+import NotFound from "./components/NotFound";
 
 const Container = styled.div({
   width: "100%",
@@ -49,6 +50,7 @@ const Content = styled.div`
 function App() {
   let searchBy = useRef("characters");
   const [filter, selectFilter] = useState("");
+  const [notFound, setNotFound] = useState(false);
   const [characters, setCharacters] = useState(null);
   const [
     getCharacters,
@@ -130,6 +132,7 @@ function App() {
       }
 
       setCharacters(null);
+      setNotFound(true);
     },
     [
       charactersError,
@@ -144,6 +147,7 @@ function App() {
   const handleSearch = useCallback(
     (value) => {
       selectFilter(value);
+      setNotFound(false);
 
       if (value) {
         searchBy.current = "characters";
@@ -172,6 +176,8 @@ function App() {
           ))}
 
         {isLoading && <Loader />}
+
+        {!isLoading && !characters && notFound && <NotFound />}
       </Content>
     </Container>
   );
