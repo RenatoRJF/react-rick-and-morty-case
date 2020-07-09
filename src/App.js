@@ -14,6 +14,7 @@ import NotFound from "./components/NotFound";
 const Container = styled.div({
   width: "100%",
   height: "100%",
+  minHeight: "100vh",
   margin: "auto",
   maxWidth: 1200,
   backgroundColor: COLORS.darkOpacity,
