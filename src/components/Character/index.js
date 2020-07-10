@@ -50,13 +50,15 @@ export default function Character({ data }) {
       <Image src={image} alt="card" />
 
       <Details>
-        <Name>{name}</Name>
-        <Status isAlive={status.toLowerCase() === "alive"}>{status}</Status>
+        <Name test-data="name">{name}</Name>
+        <Status test-data="status" isAlive={status.toLowerCase() === "alive"}>
+          {status}
+        </Status>
 
-        <PersonalData>{species}</PersonalData>
-        <PersonalData>{gender}</PersonalData>
-        <PersonalData>{dimension}</PersonalData>
-        <PersonalData>{originName}</PersonalData>
+        <PersonalData test-data="specie">{species}</PersonalData>
+        <PersonalData test-data="gender">{gender}</PersonalData>
+        <PersonalData test-data="dimension">{dimension}</PersonalData>
+        <PersonalData test-data="origin">{originName}</PersonalData>
       </Details>
     </Container>
   );
